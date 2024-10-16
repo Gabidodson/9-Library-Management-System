@@ -34,7 +34,12 @@ addBook(book) {
             return `${book.title} - ${book.isAvailable ? 'Available': 'Not Available'}`;
 
         }).join('\n');
-       }     
+       } 
+       calculateTotalBooksAvailable(){
+        return this.books.reduce((total, book) =>{
+            return total + (book.isAvailable ? 1 : 0);
+        },0);
+       }    
         }
     
 
@@ -97,3 +102,5 @@ return null;
         }
     }
 
+//Handle Books Borrowing and Returning
+//added to class section

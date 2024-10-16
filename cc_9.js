@@ -28,14 +28,15 @@ addBook(book) {
     } else{
         console.error("Not Found");
     }
+}
        listbooks() {
         return this.books.map(book => {
             return `${book.title} - ${book.isAvailable ? 'Available': 'Not Available'}`;
 
-        }).join('/n');
+        }).join('\n');
        }     
         }
-}
+    
 
 //Create a Patron Class
 class Patron {
@@ -43,8 +44,8 @@ class Patron {
         this.name = name;
         this.borrowedbooks= [];
     }
-    borrowedbook(book) {
-        if (book instanceof book && book.isAvailable){
+    borrowbook(book) {
+        if (book instanceof Book && book.isAvailable){
             book.isAvailable = false;
             this.borrowedbooks.push(book);
             console.log(`${this.name}Sucesfully Borrowed "${book.title}`);
@@ -66,4 +67,33 @@ returnBook(book) {
 }
 }
 
-    
+//Create a VIPPatron class that inherits from Patron
+class VIPPatron extends Patron {
+    constructor(name) {
+        super(name) ;
+            this.priority = true;
+        }
+        borrowBook(book) {
+            if(book instanceof Book) {
+                if (book.isAvailable){
+                    super.borrowBook(book);
+                }else{
+                    const currentBorrower = this.findCurrentBorrower(book);
+                    if (currentBorrower && !(currentBorrower instanceof VIPPatron)){
+                        currentBorrower.returnBook (book);
+                        super.borrowBook(book);
+                        console.log(`VIP ${this.name} has priority and borrowed "${book.title}" from other Patron`);
+                    }else{
+                        console.log(`Sorry, "${book.title}" is not available, under any circumstances`);
+                    }
+                }
+            }else{
+                console.error("Not a valid Book object");
+            }
+        }
+        findCurrentBorrower(book){
+console.log("findCurrentBorrower should be implemented");
+return null;
+        }
+    }
+

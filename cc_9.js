@@ -37,5 +37,33 @@ addBook(book) {
         }
 }
 
+//Create a Patron Class
+class Patron {
+    constructor(name){
+        this.name = name;
+        this.borrowedbooks= [];
+    }
+    borrowedbook(book) {
+        if (book instanceof book && book.isAvailable){
+            book.isAvailable = false;
+            this.borrowedbooks.push(book);
+            console.log(`${this.name}Sucesfully Borrowed "${book.title}`);
+        }else if (!(book instanceof book)) {
+            console.error("Not found");
+        }else {
+            console.log(`Unfortunately, "${book.title}" is not available`);
+        }
+    }
+returnBook(book) {
+    const index = this.borrowedbooks.findIndex(b=> b.ISBN === book.ISBN);
+    if (index !== -1){
+        book.isAvailable = true;
+        this.borrowedbooks.splice(index, 1);
+        console.log(`${this.name} sucesfully returned "${book.title}"`);
+    } else {
+        console.log(`${this.name} did not borrow "${book.title}"from here`);
+    }
+}
+}
 
     

@@ -16,3 +16,26 @@ set isAvailable(status){
     this._isAvailable = status;
 }
 }
+//Create a Section Class
+class Section {
+    constructor(name){
+        this.name = name;
+        this.books =[];
+    }
+addBook(book) {
+    if (book instanceof Book) {
+        this.books.push(book);
+    } else{
+        console.error("Not Found");
+    }
+       listbooks() {
+        return this.books.map(book => {
+            return `${book.title} - ${book.isAvailable ? 'Available': 'Not Available'}`;
+
+        }).join('/n');
+       }     
+        }
+}
+
+
+    
